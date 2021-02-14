@@ -223,12 +223,12 @@ public class Matrix {
     }
 
     /**
-     * Create identity matrix.
+     * Identity matrix.
      *
      * @param size The dimension of the matrix.
      * @return An identity matrix: I(i,i)
      */
-    public static Matrix createIdentityMatrix(int size) {
+    public static Matrix identityMatrix(int size) {
         Matrix matrix = new Matrix(size, size);
         double[][] elements = matrix.getAsArray();
         for (int i = 0; i < size; ++i) {
