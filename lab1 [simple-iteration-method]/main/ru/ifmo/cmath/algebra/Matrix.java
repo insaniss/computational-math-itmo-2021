@@ -267,7 +267,7 @@ public class Matrix {
     }
 
     /**
-     * Divide each row of matrix to array elements, responsively.
+     * Divide each row of matrix to array of scalars, responsively.
      *
      * @param divisor An array of row divisors
      * @return A new matrix: A(row,size) / array[:].

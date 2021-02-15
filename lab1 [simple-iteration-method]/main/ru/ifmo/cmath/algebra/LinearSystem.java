@@ -22,12 +22,12 @@ public class LinearSystem {
     @Getter private final int size;
 
     /**
-     * Construct an linear system of equations.
+     * Construct a linear system of equations.
      *
      * @param extendedMatrix An extended matrix of the system.
      * @param size Size of the system.
-     * @exception IllegalArgumentException 1.Extended matrix dimension doesn't match.
-     *                                     2.Allowed only N: 1..20.
+     * @exception IllegalArgumentException 1.Allowed only natural numbers: 1..20.
+     *                                     2.Extended matrix dimension doesn't match.
      */
     public LinearSystem(Matrix extendedMatrix, int size) {
         this.extendedMatrix = extendedMatrix;
@@ -71,7 +71,7 @@ public class LinearSystem {
     }
 
     /**
-     * Permute row by array of indices.
+     * Permute the row by array of indices.
      *
      * @param rowIndices An array of row indices.
      * @exception IllegalArgumentException Row dimension must agree.

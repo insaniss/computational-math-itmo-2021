@@ -9,7 +9,7 @@ package ru.ifmo.cmath.algebra;
 public class LinearSystemSolver {
 
     /**
-     * The default root accuracy.
+     * The default accuracy.
      */
     private final double DEFAULT_ACCURACY;
 
@@ -32,7 +32,7 @@ public class LinearSystemSolver {
     /**
      * Solve a linear system of equations.
      *
-     * @param system A linear system of equation.
+     * @param system A linear system of equations.
      * @param accuracy System root accuracy.
      * @return An answer of the system: (Root, error, iteration).
      */
@@ -53,7 +53,7 @@ public class LinearSystemSolver {
     /**
      * Solve a linear system of equations.
      *
-     * @param system A linear system of equation.
+     * @param system A linear system of equations.
      * @return An answer of the system: (Root, error, iteration).
      */
     public JacobiAnswer solveByJacobi(LinearSystem system) {
@@ -65,7 +65,7 @@ public class LinearSystemSolver {
      *
      * @param coefficients A matrix of coefficients of the system.
      * @param freeMembers A matrix of free members of the system.
-     * @param accuracy Thr root accuracy
+     * @param accuracy The root accuracy
      * @return An answer of the system: (Root, error, iteration).
      */
     private JacobiAnswer iterate(Matrix coefficients, Matrix freeMembers, double accuracy) {
@@ -78,7 +78,7 @@ public class LinearSystemSolver {
         int iters = 0;
         do {
            prev = next.copy();
-           next = b.minus(a.mult(prev));
+           next = b.minus(a.mult(prev)); // X = B - A * X
            iters++;
         } while (next.minus(prev).getAbsMax() > Math.abs(accuracy));
 
