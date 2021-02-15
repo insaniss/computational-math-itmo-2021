@@ -48,8 +48,8 @@ public class JacobiAnswer {
      * @return Row string: <|| i | root | infelicity ||>
      */
     private String pattern(double i, double roots, double errors) {
-        String root = (roots < 0 ? "" : " ") + roots;
-        return String.format("| %02.0f | %18s | % -1.16f |\n", i, root, errors);
+        int $ = 17 - String.valueOf((int) this.roots.getAbsMax()).length();
+        return String.format("| %02.0f | % -20." + $ + "f | % -20.16f |%n", i, roots, errors);
     }
 
     /**
@@ -59,13 +59,13 @@ public class JacobiAnswer {
     public String toString() {
         StringBuilder builder = new StringBuilder();
 
-        builder.append("+----+---------------------+---------------------+\n")
-               .append("| №i |  root (x)           |  infelicity (delta) |\n")
-               .append("+----+---------------------+---------------------+\n");
+        builder.append("+----+----------------------+----------------------+\n")
+               .append("| №i |  root (x)            |  infelicity (delta)  |\n")
+               .append("+----+----------------------+----------------------+\n");
         for (int i = 0; i < roots.getRowDimension(); ++i) {
             builder.append(pattern(i + 1, roots.get(i, 0), errors.get(i, 0)));
         }
-        builder.append("+----+---------------------+---------------------+\n")
+        builder.append("+----+----------------------+----------------------+\n")
                .append("> Iterations: ").append(iterations).append(" times.");
 
         return builder.toString();
