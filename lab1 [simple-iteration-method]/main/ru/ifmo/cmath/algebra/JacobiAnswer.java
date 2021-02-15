@@ -38,4 +38,36 @@ public class JacobiAnswer {
         this.errors = errors;
         this.iterations = iterations;
     }
+
+    /**
+     * Get a string data of table row.
+     *
+     * @param i A number of row.
+     * @param roots An item of root column.
+     * @param errors An item of infelicity column.
+     * @return Row string: <|| i | root | infelicity ||>
+     */
+    private String pattern(double i, double roots, double errors) {
+        String root = (roots < 0 ? "" : " ") + roots;
+        return String.format("| %02.0f | %18s | % -1.16f |\n", i, root, errors);
+    }
+
+    /**
+     * Draw a result tabular of Jacobi answer.
+     */
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+
+        builder.append("+----+---------------------+---------------------+\n")
+               .append("| №i |  root (x)           |  infelicity (delta) |\n")
+               .append("+----+---------------------+---------------------+\n");
+        for (int i = 0; i < roots.getRowDimension(); ++i) {
+            builder.append(pattern(i + 1, roots.get(i, 0), errors.get(i, 0)));
+        }
+        builder.append("+----+---------------------+---------------------+\n")
+               .append("> Iterations: ").append(iterations).append(" times.");
+
+        return builder.toString();
+    }
 }
