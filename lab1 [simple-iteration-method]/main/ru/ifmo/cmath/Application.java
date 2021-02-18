@@ -82,9 +82,9 @@ public class Application {
         Scanner in = new Scanner(System.in);
         String[] args;
 
-        printf("\t\t+-------------------------------------------+%n" +
-               "\t\t| %sSIMPLE ITERATION METHOD (JACOBI'S METHOD)%s |%n" +
-               "\t\t+-------------------------------------------+%n", RED, RESET);
+        printf("+-------------------------------------------+%n" +
+               "| %sSIMPLE ITERATION METHOD (JACOBI'S METHOD)%s |%n" +
+               "+-------------------------------------------+%n", RED, RESET);
 
         while (__RUNNING__) {
             printf("%ssimple-iteration-method%s$ ", CYAN, RESET);
