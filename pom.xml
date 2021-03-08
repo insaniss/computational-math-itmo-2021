@@ -15,14 +15,13 @@
     </properties>
 
     <dependencies>
-
+        <!-- Lombok dependency -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.16</version>
             <scope>provided</scope>
         </dependency>
-
         <!-- For testing the application -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -30,14 +29,18 @@
             <version>5.7.0</version>
             <scope>test</scope>
         </dependency>
-
-        <!-- For parsing math expressions (lab2[newton's method])-->
+        <!-- For parsing math expressions -->
         <dependency>
             <groupId>net.objecthunter</groupId>
             <artifactId>exp4j</artifactId>
             <version>0.4.8</version>
         </dependency>
-
+        <!-- Additional dependency for JavaFX -->
+        <dependency>
+            <groupId>org.kordamp.bootstrapfx</groupId>
+            <artifactId>bootstrapfx-core</artifactId>
+            <version>0.4.0</version>
+        </dependency>
     </dependencies>
 
 </project>
