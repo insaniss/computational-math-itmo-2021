@@ -31,7 +31,6 @@
             <scope>test</scope>
         </dependency>
 
-
         <!-- For parsing math expressions (lab2[newton's method])-->
         <dependency>
             <groupId>net.objecthunter</groupId>
