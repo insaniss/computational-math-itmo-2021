@@ -8,9 +8,9 @@ package ru.ifmo.cmath.algebra;
  */
 public interface EquationSolver {
 
-    Object solveByBisection(Function function, double a, double b);
+    Object[] solveByBisection(Function function, double a, double b);
 
-    Object solveByIteration(Function function, double a, double b);
+    Object[] solveByIteration(Function function, double a, double b);
 
     void setAccuracy(double accuracy);
 }

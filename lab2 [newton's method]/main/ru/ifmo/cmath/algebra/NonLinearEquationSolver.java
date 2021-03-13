@@ -1,7 +1,8 @@
 package ru.ifmo.cmath.algebra;
 
 /**
- * Non linear equation solver implementation.
+ * Non linear equation solver implementation. It solves a nonlinear equations
+ * (nonlinear system of equations) by three methods.
  *
  * @since 13 March, 2021
  * @author Bobur Zakirov
@@ -19,8 +20,9 @@ public class NonLinearEquationSolver implements EquationSolver {
         this.ACCURACY = accuracy;
     }
 
+
     @Override
-    public Object solveByBisection(Function function, double a, double b) {
+    public Object[] solveByBisection(Function function, double a, double b) {
         if (a > b) a = a + b - (b = a);
         if (function.apply(a) * function.apply(b) > 0) {
             throw new RuntimeException("Function doesn't have any roots at [" + a + ", " + b + "]");
@@ -36,8 +38,9 @@ public class NonLinearEquationSolver implements EquationSolver {
         return new Object[] { root, delta, iterations };
     }
 
+
     @Override
-    public Object solveByIteration(Function function, double a, double b) {
+    public Object[] solveByIteration(Function function, double a, double b) {
         if (a > b) a = a + b - (b = a);
         double q = derivativeSeriesMax(function, a, b);
         if (q >= 1) {
