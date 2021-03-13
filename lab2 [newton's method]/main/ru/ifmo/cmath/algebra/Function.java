@@ -12,12 +12,10 @@ import net.objecthunter.exp4j.ExpressionBuilder;
 public class Function {
 
 
-    private Expression expression;
+    private final Expression expression;
 
     /**
      * Construct a function.
-     *
-     * @param function String value of a function.
      */
     public Function(String function) {
         this.expression = new ExpressionBuilder(function).variables("x", "y").build();
@@ -42,13 +40,5 @@ public class Function {
      */
     public double derivative(double x, double delta) {
         return (this.apply(x + delta) - this.apply(x - delta)) / (2 * delta);
-    }
-
-    /**
-     * Just a toString method for current class =).
-     */
-    @Override
-    public String toString() {
-        return null;
     }
 }
