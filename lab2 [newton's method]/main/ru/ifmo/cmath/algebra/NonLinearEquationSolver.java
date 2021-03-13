@@ -26,17 +26,15 @@ public class NonLinearEquationSolver implements EquationSolver {
             throw new RuntimeException("Function doesn't have any roots at [" + a + ", " + b + "]");
         }
         int iterations = 0;
-        double root;
+        double root = 0;
         while (b - a > 2 * ACCURACY && iterations < LIMIT) {
             root = (a + b) / 2;
             if (function.apply(a) * function.apply(root) > 0) a = root; else b = root;
             iterations++;
         }
         double delta = (b - a) / 2;
-
-        return null; // fixme
+        return new Object[] { root, delta, iterations };
     }
-
 
     @Override
     public Object solveByIteration(Function function, double a, double b) {
@@ -46,18 +44,16 @@ public class NonLinearEquationSolver implements EquationSolver {
             throw new RuntimeException("Necessary condition for the convergence is not satisfied");
         }
         int iterations = 0;
-        double delta, prev, root = (a + b) / 2;
+        double delta, k = (1 - q) / q, prev, root = (a + b) / 2;
         do {
             prev = root; root = function.apply(root);
+            delta = root > prev ? root - prev : prev - root;
             iterations++;
-            delta = Math.abs(root - prev);
-        } while (delta > (1 - q) / q * ACCURACY && iterations < LIMIT);
+        } while (delta > k * ACCURACY && iterations < LIMIT);
         if (iterations == LIMIT) {
             throw new RuntimeException("Specified accuracy is not achieved");
         }
-
-        return null; // fixme
-
+        return new Object[] { root, delta / k, iterations };
     }
 
     private double derivativeSeriesMax(Function function, double a, double b) {
