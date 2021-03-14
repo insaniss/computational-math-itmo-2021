@@ -41,4 +41,18 @@ public class Function {
     public double derivative(double x, double delta) {
         return (this.apply(x + delta) - this.apply(x - delta)) / (2 * delta);
     }
+
+    /**
+     * Calculate a derivative of the function by x at point (x,y).
+     */
+    public double derivativeByX(double x, double y, double delta) {
+        return (this.apply(x + delta, y) - this.apply(x - delta, y)) / (2 * delta);
+    }
+
+    /**
+     * Calculate a derivative of the function by y at point (x,y).
+     */
+    public double derivativeByY(double x, double y, double delta) {
+        return (this.apply(x, y + delta) - this.apply(x, y - delta)) / (2 * delta);
+    }
 }
