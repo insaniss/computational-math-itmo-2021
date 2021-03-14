@@ -25,7 +25,7 @@ public class NonLinearEquationSolver implements EquationSolver {
     public Object[] solveByBisection(Function function, double a, double b) {
         if (a > b) a = a + b - (b = a);
         if (function.apply(a) * function.apply(b) > 0) {
-            throw new RuntimeException("Function doesn't have any roots at [" + a + ", " + b + "]");
+            throw new RuntimeException("Condition f(a) * f(b) < 0 is not satisfied");
         }
         int iterations = 0;
         double root = 0;
@@ -43,7 +43,7 @@ public class NonLinearEquationSolver implements EquationSolver {
     public Object[] solveByIteration(Function function, double a, double b) {
         if (a > b) a = a + b - (b = a);
         double q = derivativeSeriesMax(function, a, b);
-        if (q >= 1) {
+        if (Double.isNaN(q) || q >= 1) {
             throw new RuntimeException("Necessary condition for the convergence is not satisfied");
         }
         int iterations = 0;
@@ -63,7 +63,7 @@ public class NonLinearEquationSolver implements EquationSolver {
         double max = 0, delta = (b - a) / 100000;
 
         for (double point = a; point <= b; point += delta) {
-             max = Math.max(max, Math.abs(function.derivative(point, 1e-9)));
+            max = Math.max(max, Math.abs(function.derivative(point, 1e-9)));
         }
         return max;
     }
