@@ -67,4 +67,37 @@ public class NonLinearEquationSolver implements EquationSolver {
         }
         return max;
     }
+
+
+    private double jacobian(Function[] func, double x, double y) {
+        return func[0].derivativeByX(x, y, 1e-9) * func[1].derivativeByY(x, y, 1e-9) - func[1].derivativeByX(x, y, 1e-9) * func[0].derivativeByY(x, y, 1e-9);
+    }
+
+    private double deltaX(Function[] func, double x, double y) {
+        return func[0].apply(x, y) * func[1].derivativeByY(x, y, 1e-9) - func[1].apply(x, y) * func[0].derivativeByY(x, y, 1e-9);
+    }
+
+    private double deltaY(Function[] func, double x, double y) {
+        return func[0].derivativeByX(x, y, 1e-9) * func[1].apply(x, y) - func[1].derivativeByX(x, y, 1e-9) * func[0].apply(x, y);
+    }
+
+    @Override
+    public Object[][] solveByNewton(double x, double y, Function... functions) {
+        if (functions.length != 2) {
+            throw new IllegalArgumentException("Method is intended only for solving systems with two unknowns");
+        }
+        double delta = 1, prevX = 0, prevY = 0;
+        int iterations = 0;
+        while (delta > ACCURACY && iterations < LIMIT) {
+            prevX = x; prevY = y;
+            x = prevX - deltaX(functions, prevX, prevY) / jacobian(functions, prevX, prevY);
+            y = prevY - deltaY(functions, prevX, prevY) / jacobian(functions, prevX, prevY);
+            delta = Math.max(Math.abs(x - prevX), Math.abs(y - prevY));
+            iterations++;
+        }
+        if (Double.isNaN(x) || Double.isNaN(y) || iterations == LIMIT) {
+            throw new RuntimeException("Couldn't achieved specified accuracy");
+        }
+        return new Object[][] {{ x, x - prevX }, { y, y - prevY }, { iterations }};
+    }
 }

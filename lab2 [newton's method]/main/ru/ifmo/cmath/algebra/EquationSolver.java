@@ -22,4 +22,9 @@ public interface EquationSolver {
      * Set an accuracy.
      */
     void setAccuracy(double accuracy);
+
+    /**
+     * Solve a system of equations by Newton's method.
+     */
+    Object[][] solveByNewton(double x, double y, Function... functions);
 }
