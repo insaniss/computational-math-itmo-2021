@@ -67,7 +67,7 @@ public class SolverTest {
     public void test2b() {
         Function func = new Function("(sin(x)^2-3cos(x)-5)/e^(x^2)"); // x=(sin(x)^2-3cos(x)-5)/e^(x^2)
         solver.setAccuracy(0.0123);
-        Object[] results = solver.solveByIteration(func, -1.9, 3.3);
+        Object[] results = solver.solveByIteration(func, -1.9, -3.3);
         Assertions.assertTrue(
                 almostEqual(func.apply((double) results[0]), (double) results[0], 0.0123)
         );

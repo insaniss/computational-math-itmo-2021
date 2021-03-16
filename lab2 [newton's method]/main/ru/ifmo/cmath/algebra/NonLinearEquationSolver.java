@@ -62,6 +62,8 @@ public class NonLinearEquationSolver implements EquationSolver {
     private double derivativeSeriesMax(Function function, double a, double b) {
         double max = 0, delta = (b - a) / 100000;
 
+        if (a == b) return Math.abs(function.derivative(0, 1e-9));
+
         for (double point = a; point <= b; point += delta) {
             max = Math.max(max, Math.abs(function.derivative(point, 1e-9)));
         }
