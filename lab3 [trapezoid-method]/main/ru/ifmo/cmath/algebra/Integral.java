@@ -1,22 +1,29 @@
 package ru.ifmo.cmath.algebra;
 
 public class Integral {
-    public final Function function;
-
-    public Double lowerBound;
-    public Double upperBound;
+    private final Function function;
+    private final Bounds bounds;
 
     public Integral(Function function) {
         this.function = function;
+        this.bounds = new Bounds();
     }
 
     public Integral from(Double lowerBound) {
-        this.lowerBound = lowerBound;
+        bounds.lower = lowerBound;
         return this;
     }
 
     public Integral to(Double upperBound) {
-        this.upperBound = upperBound;
+        bounds.upper = upperBound;
         return this;
+    }
+
+    public Function function() {
+        return this.function;
+    }
+
+    public Bounds bounds() {
+        return this.bounds;
     }
 }
