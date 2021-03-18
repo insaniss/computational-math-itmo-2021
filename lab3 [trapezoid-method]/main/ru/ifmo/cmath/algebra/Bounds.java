@@ -5,11 +5,11 @@ public class Bounds {
     protected Double upper;
 
     public Boolean equal() {
-        return lower.equals(upper);
+        return this.lower.equals(this.upper);
     }
 
     public Double difference() {
-        return Math.abs(lower - upper);
+        return this.upper - this.lower;
     }
 
     public Double lower() {
