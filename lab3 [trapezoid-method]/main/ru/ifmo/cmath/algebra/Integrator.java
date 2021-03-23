@@ -1,6 +1,8 @@
 package ru.ifmo.cmath.algebra;
 
 public class Integrator implements TrapezoidalRule {
+    private final Integer limit = (1 << 22);
+
     public IntegralAnswer integrate(Integral integral, Double accuracy) {
         return this.approximate(integral, accuracy);
     }
@@ -15,7 +17,10 @@ public class Integrator implements TrapezoidalRule {
             integral2n = area(integral, parts);
             delta = Math.abs(integral1n - integral2n) / 3;
         }
-        while (delta > accuracy);
+        while (delta > accuracy && parts < limit);
+        if (parts.equals(limit)) {
+            throw new DivergeException("Integral is diverge!");
+        }
         return new IntegralAnswer(integral2n, delta, parts);
     }
 
