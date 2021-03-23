@@ -11,6 +11,10 @@ public class Function {
     }
 
     public Double apply(Double x) {
-        return expression.setVariable("x", x).evaluate();
+        try {
+            return expression.setVariable("x", x).evaluate();
+        } catch (RuntimeException e) {
+            return Double.NaN;
+        }
     }
 }
