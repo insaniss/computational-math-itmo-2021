@@ -22,14 +22,12 @@ public class Integrator implements TrapezoidalRule {
     public Double area(Integral integral, Integer parts) {
         Double area = 0.0;
         Double step = integral.bounds().difference() / parts;
-
         for (int i = 0; i < parts; i++) {
-            area += this.trapezoid
-                    (
-                            integral.function(),
-                            integral.bounds().lower() + i * step,
-                            integral.bounds().lower() + (i + 1) * step
-                    );
+            area += this.trapezoid(
+                    integral.function(),
+                    integral.bounds().lower() + i * step,
+                    integral.bounds().lower() + (i + 1) * step
+            );
             if (area.isNaN() || area.isInfinite()) {
                 throw new DivergeException("Integral is diverge.");
             }
