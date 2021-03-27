@@ -55,7 +55,7 @@ public class LagrangePolynomialBuilder {
         }
         for (int i = 0; i < yData.size(); i++) {
             if (yData.get(i).isNaN() || yData.get(i).isInfinite()) {
-                throw new IllegalArgumentException("Function undefined at x=" + xData.get(i));
+                throw new IllegalArgumentException("Function undefined at x=" + xData.get(i) + ".");
             }
             /* Create a Lagrange Polynomial */
             lagrangePolynomial.append("+").append(yData.get(i))
