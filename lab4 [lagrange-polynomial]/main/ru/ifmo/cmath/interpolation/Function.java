@@ -7,7 +7,7 @@ public class Function {
     private final Expression expression;
 
     public Function(String expr) {
-        expression = new ExpressionBuilder(expr).variable("x").build();
+        this.expression = new ExpressionBuilder(expr).variable("x").build();
     }
 
     public Double apply(Double x) {
