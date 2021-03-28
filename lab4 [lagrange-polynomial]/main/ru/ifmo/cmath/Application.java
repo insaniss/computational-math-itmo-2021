@@ -34,8 +34,8 @@ public class Application extends javafx.application.Application {
             this.experimentalPoints = Array.parseDoubleArray(props.getProperty("experimental.points"));
             this.interpolationPoints = Array.parseDoubleArray(props.getProperty("interpolation.points"));
             /* Calculate graph borders */
-            this.lowerBound = 1.125D * Array.minOf(experimentalPoints, interpolationPoints);
-            this.upperBound = 1.125D * Array.maxOf(experimentalPoints, interpolationPoints);
+            this.lowerBound = Array.minOf(experimentalPoints, interpolationPoints);
+            this.upperBound = Array.maxOf(experimentalPoints, interpolationPoints);
             /* Build a Lagrange Polynomial */
             this.lagrangePolynomial = new LagrangePolynomialBuilder(experimentalFunction)
                     .experimentalData(experimentalPoints)
@@ -88,6 +88,9 @@ public class Application extends javafx.application.Application {
         XYChart.Series<Double, Double> series = new XYChart.Series<>();
         /* Graph step value */
         Double step = (upperBound - lowerBound) / 4096;
+        /* Resize lower and upper bound */
+        lowerBound -= 128 * step;
+        upperBound += 128 * step;
         /* Added data to series */
         for (Double xPoint = lowerBound; xPoint <= upperBound; xPoint += step) {
             Double yPoint = function.apply(xPoint);
