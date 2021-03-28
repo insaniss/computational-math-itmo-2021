@@ -11,7 +11,7 @@ public class LagrangePolynomialBuilder {
 
     public LagrangePolynomialBuilder(Function function) {
         if (function == null) {
-            throw new IllegalArgumentException("Function can not be null");
+            throw new IllegalArgumentException("Experimental function can not be null");
         }
         this.function = function;
         this.lagrangePolynomial = new StringBuilder();
@@ -55,7 +55,7 @@ public class LagrangePolynomialBuilder {
         }
         for (int i = 0; i < yData.size(); i++) {
             if (yData.get(i).isNaN() || yData.get(i).isInfinite()) {
-                throw new IllegalArgumentException("Function undefined at x=" + xData.get(i));
+                throw new IllegalArgumentException("Experimental function undefined at x=" + xData.get(i));
             }
             /* Create a Lagrange Polynomial */
             lagrangePolynomial.append("+").append(yData.get(i))
