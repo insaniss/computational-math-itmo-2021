@@ -76,6 +76,9 @@ public class Application extends javafx.application.Application {
         } else {
             chart.getData().addAll(series1, series2, series3);
         }
+        /* Remove all symbols from first series & second series */
+        this.removeChartLineSymbol(series1, series2);
+
         stage.setTitle("Interpolation with Lagrange Polynomial");
         stage.setScene(scene);
         stage.show();
@@ -103,5 +106,19 @@ public class Application extends javafx.application.Application {
             series.getData().add(new XYChart.Data<>(xPoint, function.apply(xPoint)));
         }
         return series;
+    }
+
+    @SafeVarargs
+    private final void removeChartLineSymbol(XYChart.Series<Double, Double>... series) {
+        for (XYChart.Series<Double, Double> s : series) {
+            removeChartLineSymbol(s);
+        }
+    }
+
+    private void removeChartLineSymbol(XYChart.Series<Double, Double> series) {
+        for (XYChart.Data<Double, Double> data : series.getData()) {
+            /* This node is StackPane */
+            data.getNode().setVisible(false);
+        }
     }
 }
