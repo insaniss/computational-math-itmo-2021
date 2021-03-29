@@ -1,5 +1,6 @@
 package ru.ifmo.cmath;
 
+import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
@@ -46,19 +47,20 @@ public class Application extends javafx.application.Application {
     }
 
     public void exit(String message, int status) {
-        System.err.println(message);
+        System.err.printf("%s\n", message);
         /* Terminate the program with status */
         System.exit(status);
     }
 
     @Override
     public void start(Stage stage) throws Exception {
-        NumberAxis xAxis = new NumberAxis();
-        NumberAxis yAxis = new NumberAxis();
+        NumberAxis xAxis = createNumberAxis("bounds.axis.x");
+        NumberAxis yAxis = createNumberAxis("bounds.axis.y");
         /* Build a line chart */
         LineChart<Number, Number> chart = new LineChart<>(xAxis, yAxis);
         /* Add a stylesheet */
         chart.getStylesheets().add(Props.CSS);
+        chart.setCursor(Cursor.HAND);
         /* Set a chart as root to scene */
         Scene scene = new Scene(chart, 900, 600);
         /* Calculate a value of data */
@@ -84,14 +86,28 @@ public class Application extends javafx.application.Application {
         stage.show();
     }
 
+    private NumberAxis createNumberAxis(String property) {
+        String pattern = props.getProperty(property);
+        try {
+            /* Parse a property value to Double array */
+            Double[] bounds = Array.parseDoubleArray(pattern);
+            if (bounds.length == 2) {
+                return new NumberAxis(bounds[0], bounds[1], (bounds[1] - bounds[0]) / 16);
+            }
+        } catch (RuntimeException ignored) { }
+        /* If impossible parse bounds array */
+        System.err.printf("Warning: property \"%s\" not setted or with invalid format!\n", property);
+        return new NumberAxis();
+    }
+
     private XYChart.Series createChart(Function function) {
         XYChart.Series<Double, Double> series = new XYChart.Series<>();
         /* Graph step value */
         Double step = (upperBound - lowerBound) / 4096;
-        /* Resize lower and upper bound */
+        /* Modify lower and upper bound */
         lowerBound -= 128 * step;
         upperBound += 128 * step;
-        /* Added data to series */
+        /* Add data to series */
         for (Double xPoint = lowerBound; xPoint <= upperBound; xPoint += step) {
             Double yPoint = function.apply(xPoint);
             /* If function is defined */
@@ -104,7 +120,7 @@ public class Application extends javafx.application.Application {
 
     private XYChart.Series createChart(Function function, Double... data) {
         XYChart.Series<Double, Double> series = new XYChart.Series<>();
-        /* Added data to series */
+        /* Add data to series */
         for (Double xPoint : data) {
             series.getData().add(new XYChart.Data<>(xPoint, function.apply(xPoint)));
         }
