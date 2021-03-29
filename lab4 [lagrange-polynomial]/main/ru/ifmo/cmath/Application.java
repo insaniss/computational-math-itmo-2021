@@ -63,9 +63,9 @@ public class Application extends javafx.application.Application {
         Scene scene = new Scene(chart, 900, 600);
         /* Calculate a value of data */
         XYChart.Series series1 = createChart(experimentalFunction);
-        series1.setName("Experimental function");
+        series1.setName("Experimental function f(x)");
         XYChart.Series series2 = createChart(lagrangePolynomial);
-        series2.setName("Lagrange polynomial");
+        series2.setName("Lagrange polynomial L(x)");
         XYChart.Series series3 = createChart(lagrangePolynomial, experimentalPoints);
         series3.setName("Interpolation points");
         XYChart.Series series4 = createChart(lagrangePolynomial, interpolationPoints);
