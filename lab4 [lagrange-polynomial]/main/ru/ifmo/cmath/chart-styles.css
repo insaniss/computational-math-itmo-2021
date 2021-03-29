@@ -1,0 +1,28 @@
+.default-color0.chart-series-line {
+    -fx-stroke-width: 2px;
+}
+.default-color1.chart-series-line {
+    -fx-stroke-width: 2px;
+    -fx-stroke-dash-array: 4px;
+    -fx-stroke-line-cap: round;
+    -fx-stroke: #232372;
+}
+.default-color2.chart-series-line,
+.default-color3.chart-series-line {
+    -fx-stroke-width: 0;
+}
+.default-color0.chart-line-symbol {
+    -fx-padding: 4px;
+}
+.default-color1.chart-line-symbol {
+    -fx-padding: 4px;
+    -fx-background-color: #232372, white;
+}
+.default-color2.chart-line-symbol {
+    -fx-padding: 4px;
+    -fx-background-color: #232372;
+}
+.default-color3.chart-line-symbol {
+    -fx-padding: 4px;
+    -fx-background-color: #232372, white;
+}
