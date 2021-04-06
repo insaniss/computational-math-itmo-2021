@@ -48,8 +48,8 @@ public class LagrangianPolynomialBuilder {
             /* Calculate a dominator value */
             dominator *= (axisData.get(i).getX() - axisData.get(j).getX());
 
-            if (-1E-6 < dominator && dominator < 1E-6) {
-                throw new IllegalArgumentException("lagrangian polynomial: too small steps!");
+            if (-1E-9 < dominator && dominator < 1E-9) {
+                throw new RuntimeException("lagrangian polynomial: too small steps!");
             }
         }
         return numerator.append("/").append(dominator);
