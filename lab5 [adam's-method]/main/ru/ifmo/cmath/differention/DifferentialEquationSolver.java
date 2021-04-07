@@ -39,7 +39,6 @@ public class DifferentialEquationSolver {
         return points;
     }
 
-
     private Point pointByRungeKutta(Function func, List<Point> points, int i, double step) {
         Point point = points.get(i - 1);
 
@@ -55,20 +54,19 @@ public class DifferentialEquationSolver {
         return new Point(points.get(0).getX() + i * step, point.getY() + delta);
     }
 
-
-
     private Point pointByAdams(List<Double> values, List<Point> points, int i, double step) {
         Point point = points.get(i - 1);
 
         double[] q = new double[4];
-
+        
         q[0] = values.get(i - 1) * step;
         q[1] = values.get(i - 2) * step;
         q[2] = values.get(i - 3) * step;
         q[3] = values.get(i - 4) * step;
 
-        double delta = (55 * q[0] - 59 * q[1] + 37 * q[2] - 9 * q[3]) / 24;
+        double forecast = (55 * q[0] - 59 * q[1] + 37 * q[2] - 9 * q[3]) / 24;
+        double correction = (9 * forecast + 19 * q[0] - 5 * q[1] + q[2]) / 24;
 
-        return new Point(points.get(0).getX() + i * step, point.getY() + delta);
+        return new Point(points.get(0).getX() + i * step, point.getY() + correction);
     }
 }
