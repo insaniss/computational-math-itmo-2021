@@ -69,16 +69,16 @@ public class Application extends javafx.application.Application {
     private void print(List<Point> points) {
         int size = String.valueOf(points.size()).length();
         String line = String.join("", Collections.nCopies(size + 44, "-"));
-
-        StringBuilder builder = new StringBuilder();
-        builder.append(String.format("+%s+\n", line));
-        builder.append(String.format("| %" + size + "s |       Axis X       |       Axis Y       |\n", "№i"));
-        builder.append(String.format("+%s+\n", line));
+        /* Build a header of the tabular */
+        StringBuilder builder = new StringBuilder(
+                String.format("+%s+\n| %" + size + "s |       Axis X       |       Axis Y       |\n+%s+\n", line, "№i", line)
+        );
+        /* Build a result tabular */
         for (int i = 1; i <= points.size(); i++) {
             builder.append(String.format("| %" + size + "s | %018.9f | %018.9f |\n", i,  points.get(i - 1).getX(), points.get(i - 1).getY()));
         }
-        builder.append(String.format("+%s+\n", line));
-        System.out.println(builder);
+        /* Print a result */
+        System.out.println(builder.append(String.format("+%s+\n", line)));
     }
 
     private void error(String message, int status) {
@@ -122,7 +122,7 @@ public class Application extends javafx.application.Application {
         stage.setScene(scene);
         stage.show();
         /*
-         * Draw a final function graphic.
+         * Draw a graphic of final function.
          */
         if (lagrangianPolynomial == null) {
             drawWithoutLagrangianPolynomial(data);
@@ -135,19 +135,22 @@ public class Application extends javafx.application.Application {
         XYChart.Data tmp;
         for (Point point : axisData) {
             data.add(tmp = new XYChart.Data<>(point.getX(), point.getY()));
-            /* Delete point symbol */
+            /* Delete a point symbol */
             tmp.getNode().setVisible(false);
         }
     }
 
     private void drawWithLagrangianPolynomial(ObservableList data) {
-        double step = (xN - x0) / 1024; // step
+        double step = (xN - x0) / 1024;
 
         XYChart.Data tmp;
         for (double point = x0; point <= xN; point += step) {
             data.add(tmp = new XYChart.Data<>(point, lagrangianPolynomial.apply(point)));
-            /* Delete point symbol */
+            /* Delete a point symbol */
             tmp.getNode().setVisible(false);
+        }
+        for (Point point : axisData) {
+            data.add(tmp = new XYChart.Data<>(point.getX(), point.getY()));
         }
     }
 }
