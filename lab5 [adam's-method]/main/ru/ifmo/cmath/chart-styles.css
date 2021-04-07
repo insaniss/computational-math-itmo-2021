@@ -1,0 +1,8 @@
+.chart-series-line {
+    -fx-stroke-width: 2px;
+    -fx-stroke: darkblue;
+    -fx-stroke-dash-array: 5;
+}
+.chart-line-symbol {
+    -fx-background-color: darkblue, white;
+}
