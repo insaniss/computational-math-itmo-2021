@@ -33,7 +33,7 @@ public class DifferentialEquationSolver {
             if (idx < 3) {
                 points.add(pointByRungeKutta(function, points, idx + 1, step));
             } else {
-                points.add(pointByAdams(values, points, idx + 1, step));
+                points.add(pointByAdams(function, values, points, idx + 1, step));
             }
         }
         return points;
@@ -42,31 +42,34 @@ public class DifferentialEquationSolver {
     private Point pointByRungeKutta(Function func, List<Point> points, int i, double step) {
         Point point = points.get(i - 1);
 
-        double[] k = new double[4];
+        double delta, k[] = new double[4];
 
-        k[0] = func.apply(point.getX(), point.getX()) * step;
-        k[1] = func.apply(point.getX() + 0.5 * step, point.getY() + 0.5 * k[0]) * step;
-        k[2] = func.apply(point.getX() + 0.5 * step, point.getY() + 0.5 * k[1]) * step;
-        k[3] = func.apply(point.getX() + step, point.getY() + k[2]) * step;
+        k[0] = step * func.apply(point.getX(), point.getX());
+        k[1] = step * func.apply(point.getX() + 0.5 * step, point.getY() + 0.5 * k[0]);
+        k[2] = step * func.apply(point.getX() + 0.5 * step, point.getY() + 0.5 * k[1]);
+        k[3] = step * func.apply(point.getX() + step, point.getY() + k[2]);
 
-        double delta = (k[0] + 2 * k[1] + 2 * k[2] + k[3]) / 6;
+        delta = (k[0] + 2 * k[1] + 2 * k[2] + k[3]) / 6;
 
         return new Point(points.get(0).getX() + i * step, point.getY() + delta);
     }
 
-    private Point pointByAdams(List<Double> values, List<Point> points, int i, double step) {
+    private Point pointByAdams(Function function, List<Double> values, List<Point> points, int i, double step) {
         Point point = points.get(i - 1);
 
-        double[] q = new double[4];
+        double delta, q[] = new double[4];
         
-        q[0] = values.get(i - 1) * step;
-        q[1] = values.get(i - 2) * step;
-        q[2] = values.get(i - 3) * step;
-        q[3] = values.get(i - 4) * step;
+        q[0] = step * values.get(i - 1);
+        q[1] = step * values.get(i - 2);
+        q[2] = step * values.get(i - 3);
+        q[3] = step * values.get(i - 4);
 
-        double forecast = (55 * q[0] - 59 * q[1] + 37 * q[2] - 9 * q[3]) / 24;
-        double correction = (9 * forecast + 19 * q[0] - 5 * q[1] + q[2]) / 24;
+        /* Forecast */
+        delta = (55 * q[0] - 59 * q[1] + 37 * q[2] - 9 * q[3]) / 24;
+        delta = step * function.apply(points.get(0).getX() + i * step, delta);
+        /* Correction */
+        delta = (9 * delta + 19 * q[0] - 5 * q[1] + q[2]) / 24;
 
-        return new Point(points.get(0).getX() + i * step, point.getY() + correction);
+        return new Point(points.get(0).getX() + i * step, point.getY() + delta);
     }
 }
