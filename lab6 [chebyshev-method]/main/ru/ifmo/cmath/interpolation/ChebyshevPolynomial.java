@@ -7,6 +7,9 @@ public class ChebyshevPolynomial {
     private final int order;
 
     public ChebyshevPolynomial(int order) {
+        if (order < 1) {
+            throw new IllegalArgumentException("Order can not be less than 1");
+        }
         this.order = order;
     }
 
