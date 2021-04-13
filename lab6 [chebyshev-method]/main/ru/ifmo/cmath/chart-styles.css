@@ -1,0 +1,17 @@
+.default-color0.chart-series-line {
+    -fx-stroke-width: 2px;
+    /*-fx-stroke: red;*/
+}
+.default-color1.chart-series-line {
+    -fx-stroke-width: 2px;
+    -fx-stroke: darkblue;
+    -fx-stroke-dash-array: 10;
+}
+.default-color0.chart-line-symbol {
+    /*-fx-background-color: red, white;*/
+    -fx-padding: 4px;
+}
+.default-color1.chart-line-symbol {
+    -fx-background-color: darkblue, white;
+    -fx-padding: 4px;
+}
