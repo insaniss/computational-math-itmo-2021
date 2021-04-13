@@ -114,7 +114,7 @@ public class Application extends javafx.application.Application {
         XYChart.Series series1 = new XYChart.Series<>(data1);
         series1.setName("Original function");
         XYChart.Series series2 = new XYChart.Series<>(data2);
-        series2.setName("Interpolation function");
+        series2.setName("Interpolational function");
 
         chart.getData().addAll(series1, series2);
         chart.getStylesheets().add("ru/ifmo/cmath/chart-styles.css");
